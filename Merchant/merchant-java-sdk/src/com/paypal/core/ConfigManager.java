@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
+import java.util.logging.Level;
+
+import java.util.logging.Logger;
 
 /**
  * 
@@ -15,27 +18,24 @@ import java.util.Set;
  * 
  */
 public class ConfigManager {
-	private static ConfigManager conf;
+	private static ConfigManager conf=new ConfigManager();
 	private Enumeration<Object> em;
 	private Properties properties;
 	private boolean propertyLoaded = false;
 
-	private ConfigManager() {
-
-	}
+	private static Logger logger=Logger.getLogger(ConfigManager.class.toString());
+	
+	private ConfigManager() {}
 
 	/**
-	 * create singleton object for ConfigManager
+	 * returns statically created singleton object for ConfigManager
 	 * 
 	 * @return ConfigManager object
 	 */
 	public static ConfigManager getInstance() {
-		if (conf == null) {
-			conf = new ConfigManager();
-		}
 		return conf;
 	}
-
+	
 	/**
 	 * overloaded method to load the configuration file.
 	 * 
@@ -44,10 +44,12 @@ public class ConfigManager {
 	 * @throws IOException
 	 */
 	public void load(InputStream is) throws IOException {
+		logger.entering("ConfigManager", "load");
 		properties = new Properties();
 		properties.load(is);
 		setPropertyLoaded(true);
-
+		logger.log(Level.INFO, properties.toString());
+		logger.exiting("ConfigManager", "load");
 	}
 
 	/**

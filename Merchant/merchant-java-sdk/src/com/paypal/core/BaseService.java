@@ -5,13 +5,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.paypal.exception.ClientActionRequiredException;
-import com.paypal.exception.SSLConfigurationException;
 import com.paypal.exception.HttpErrorException;
 import com.paypal.exception.InvalidCredentialException;
 import com.paypal.exception.InvalidResponseDataException;
 import com.paypal.exception.MissingCredentialException;
+import com.paypal.exception.SSLConfigurationException;
 import com.paypal.sdk.exceptions.OAuthException;
 
 /**
@@ -19,6 +21,8 @@ import com.paypal.sdk.exceptions.OAuthException;
  */
 public class BaseService {
 
+	private static Logger logger=Logger.getLogger(BaseService.class.getName());
+	
 	private String serviceName;
 	private String version;
 	protected String accessToken = null;
@@ -150,12 +154,17 @@ public class BaseService {
 			InvalidResponseDataException, ClientActionRequiredException,
 			MissingCredentialException, SSLConfigurationException,
 			InvalidCredentialException, FileNotFoundException, IOException,
-			OAuthException {
+			OAuthException 
+	{
+		logger.entering("BaseService", "call");
+		
 		if (!ConfigManager.getInstance().isPropertyLoaded()) {
 			throw new FileNotFoundException("Property file not loaded");
 		}
 		APIService apiService = new APIService(serviceName);
 		lastRequest=payload;
+		logger.log(Level.INFO, method + " " + payload + " " + (apiUsername!=null?apiUsername:"null") 
+				+ " " + accessToken + " "  + tokenSecret);
 		String response= apiService.makeRequest(method, payload, apiUsername,
 				accessToken, tokenSecret);
 		lastResponse=response;

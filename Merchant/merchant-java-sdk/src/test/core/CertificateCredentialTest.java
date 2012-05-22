@@ -3,8 +3,8 @@ package test.core;
 import junit.framework.Assert;
 
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.Test;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 import com.paypal.core.CertificateCredential;
 import com.paypal.core.ICredential;

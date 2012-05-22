@@ -4,6 +4,19 @@
  */
 package urn.ebay.api.PayPalAPI;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
+import urn.ebay.apis.eBLBaseComponents.AbstractRequestType;
+
 import com.paypal.core.BaseService;
 import com.paypal.exception.ClientActionRequiredException;
 import com.paypal.exception.HttpErrorException;
@@ -12,114 +25,11 @@ import com.paypal.exception.InvalidResponseDataException;
 import com.paypal.exception.MissingCredentialException;
 import com.paypal.exception.SSLConfigurationException;
 import com.paypal.sdk.exceptions.OAuthException;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import javax.xml.parsers.ParserConfigurationException;
-import org.xml.sax.SAXException;
-import urn.ebay.api.PayPalAPI.AddressVerifyReq;
-import urn.ebay.api.PayPalAPI.AddressVerifyResponseType;
-import urn.ebay.api.PayPalAPI.BAUpdateResponseType;
-import urn.ebay.api.PayPalAPI.BillAgreementUpdateReq;
-import urn.ebay.api.PayPalAPI.BillOutstandingAmountReq;
-import urn.ebay.api.PayPalAPI.BillOutstandingAmountResponseType;
-import urn.ebay.api.PayPalAPI.BillUserReq;
-import urn.ebay.api.PayPalAPI.BillUserResponseType;
-import urn.ebay.api.PayPalAPI.CancelRecoupReq;
-import urn.ebay.api.PayPalAPI.CancelRecoupResponseType;
-import urn.ebay.api.PayPalAPI.CompleteRecoupReq;
-import urn.ebay.api.PayPalAPI.CompleteRecoupResponseType;
-import urn.ebay.api.PayPalAPI.CreateBillingAgreementReq;
-import urn.ebay.api.PayPalAPI.CreateBillingAgreementResponseType;
-import urn.ebay.api.PayPalAPI.CreateMobilePaymentReq;
-import urn.ebay.api.PayPalAPI.CreateMobilePaymentResponseType;
-import urn.ebay.api.PayPalAPI.CreateRecurringPaymentsProfileReq;
-import urn.ebay.api.PayPalAPI.CreateRecurringPaymentsProfileResponseType;
-import urn.ebay.api.PayPalAPI.DoAuthorizationReq;
-import urn.ebay.api.PayPalAPI.DoAuthorizationResponseType;
-import urn.ebay.api.PayPalAPI.DoCancelReq;
-import urn.ebay.api.PayPalAPI.DoCancelResponseType;
-import urn.ebay.api.PayPalAPI.DoCaptureReq;
-import urn.ebay.api.PayPalAPI.DoCaptureResponseType;
-import urn.ebay.api.PayPalAPI.DoDirectPaymentReq;
-import urn.ebay.api.PayPalAPI.DoDirectPaymentResponseType;
-import urn.ebay.api.PayPalAPI.DoExpressCheckoutPaymentReq;
-import urn.ebay.api.PayPalAPI.DoExpressCheckoutPaymentResponseType;
-import urn.ebay.api.PayPalAPI.DoMobileCheckoutPaymentReq;
-import urn.ebay.api.PayPalAPI.DoMobileCheckoutPaymentResponseType;
-import urn.ebay.api.PayPalAPI.DoNonReferencedCreditReq;
-import urn.ebay.api.PayPalAPI.DoNonReferencedCreditResponseType;
-import urn.ebay.api.PayPalAPI.DoReauthorizationReq;
-import urn.ebay.api.PayPalAPI.DoReauthorizationResponseType;
-import urn.ebay.api.PayPalAPI.DoReferenceTransactionReq;
-import urn.ebay.api.PayPalAPI.DoReferenceTransactionResponseType;
-import urn.ebay.api.PayPalAPI.DoUATPAuthorizationReq;
-import urn.ebay.api.PayPalAPI.DoUATPAuthorizationResponseType;
-import urn.ebay.api.PayPalAPI.DoUATPExpressCheckoutPaymentReq;
-import urn.ebay.api.PayPalAPI.DoUATPExpressCheckoutPaymentResponseType;
-import urn.ebay.api.PayPalAPI.DoVoidReq;
-import urn.ebay.api.PayPalAPI.DoVoidResponseType;
-import urn.ebay.api.PayPalAPI.EnterBoardingReq;
-import urn.ebay.api.PayPalAPI.EnterBoardingResponseType;
-import urn.ebay.api.PayPalAPI.ExecuteCheckoutOperationsReq;
-import urn.ebay.api.PayPalAPI.ExecuteCheckoutOperationsResponseType;
-import urn.ebay.api.PayPalAPI.ExternalRememberMeOptOutReq;
-import urn.ebay.api.PayPalAPI.ExternalRememberMeOptOutResponseType;
-import urn.ebay.api.PayPalAPI.GetAccessPermissionDetailsReq;
-import urn.ebay.api.PayPalAPI.GetAccessPermissionDetailsResponseType;
-import urn.ebay.api.PayPalAPI.GetAuthDetailsReq;
-import urn.ebay.api.PayPalAPI.GetAuthDetailsResponseType;
-import urn.ebay.api.PayPalAPI.GetBalanceReq;
-import urn.ebay.api.PayPalAPI.GetBalanceResponseType;
-import urn.ebay.api.PayPalAPI.GetBillingAgreementCustomerDetailsReq;
-import urn.ebay.api.PayPalAPI.GetBillingAgreementCustomerDetailsResponseType;
-import urn.ebay.api.PayPalAPI.GetBoardingDetailsReq;
-import urn.ebay.api.PayPalAPI.GetBoardingDetailsResponseType;
-import urn.ebay.api.PayPalAPI.GetExpressCheckoutDetailsReq;
-import urn.ebay.api.PayPalAPI.GetExpressCheckoutDetailsResponseType;
-import urn.ebay.api.PayPalAPI.GetIncentiveEvaluationReq;
-import urn.ebay.api.PayPalAPI.GetIncentiveEvaluationResponseType;
-import urn.ebay.api.PayPalAPI.GetMobileStatusReq;
-import urn.ebay.api.PayPalAPI.GetMobileStatusResponseType;
-import urn.ebay.api.PayPalAPI.GetPalDetailsReq;
-import urn.ebay.api.PayPalAPI.GetPalDetailsResponseType;
-import urn.ebay.api.PayPalAPI.GetRecurringPaymentsProfileDetailsReq;
-import urn.ebay.api.PayPalAPI.GetRecurringPaymentsProfileDetailsResponseType;
-import urn.ebay.api.PayPalAPI.GetTransactionDetailsReq;
-import urn.ebay.api.PayPalAPI.GetTransactionDetailsResponseType;
-import urn.ebay.api.PayPalAPI.InitiateRecoupReq;
-import urn.ebay.api.PayPalAPI.InitiateRecoupResponseType;
-import urn.ebay.api.PayPalAPI.ManagePendingTransactionStatusReq;
-import urn.ebay.api.PayPalAPI.ManagePendingTransactionStatusResponseType;
-import urn.ebay.api.PayPalAPI.ManageRecurringPaymentsProfileStatusReq;
-import urn.ebay.api.PayPalAPI.ManageRecurringPaymentsProfileStatusResponseType;
-import urn.ebay.api.PayPalAPI.MassPayReq;
-import urn.ebay.api.PayPalAPI.MassPayResponseType;
-import urn.ebay.api.PayPalAPI.RefundTransactionReq;
-import urn.ebay.api.PayPalAPI.RefundTransactionResponseType;
-import urn.ebay.api.PayPalAPI.ReverseTransactionReq;
-import urn.ebay.api.PayPalAPI.ReverseTransactionResponseType;
-import urn.ebay.api.PayPalAPI.SetAccessPermissionsReq;
-import urn.ebay.api.PayPalAPI.SetAccessPermissionsResponseType;
-import urn.ebay.api.PayPalAPI.SetAuthFlowParamReq;
-import urn.ebay.api.PayPalAPI.SetAuthFlowParamResponseType;
-import urn.ebay.api.PayPalAPI.SetCustomerBillingAgreementReq;
-import urn.ebay.api.PayPalAPI.SetCustomerBillingAgreementResponseType;
-import urn.ebay.api.PayPalAPI.SetExpressCheckoutReq;
-import urn.ebay.api.PayPalAPI.SetExpressCheckoutResponseType;
-import urn.ebay.api.PayPalAPI.SetMobileCheckoutReq;
-import urn.ebay.api.PayPalAPI.SetMobileCheckoutResponseType;
-import urn.ebay.api.PayPalAPI.TransactionSearchReq;
-import urn.ebay.api.PayPalAPI.TransactionSearchResponseType;
-import urn.ebay.api.PayPalAPI.UpdateAccessPermissionsReq;
-import urn.ebay.api.PayPalAPI.UpdateAccessPermissionsResponseType;
-import urn.ebay.api.PayPalAPI.UpdateRecurringPaymentsProfileReq;
-import urn.ebay.api.PayPalAPI.UpdateRecurringPaymentsProfileResponseType;
-import urn.ebay.apis.eBLBaseComponents.AbstractRequestType;
 
 
 public class PayPalAPIInterfaceServiceService extends BaseService {
+	
+	private static Logger logger=Logger.getLogger(PayPalAPIInterfaceServiceService.class.toString());
 
 	private static final String SERVICE_VERSION = "86.0";
 	private static final String SERVICE_NAME = "PayPalAPIInterfaceService";
@@ -162,6 +72,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new RefundTransactionResponseType(response);
 	}
 
+	@Deprecated
 	public RefundTransactionResponseType refundTransaction (RefundTransactionReq RefundTransactionReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return refundTransaction(RefundTransactionReq, null);
 	}
@@ -185,6 +96,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new InitiateRecoupResponseType(response);
 	}
 
+	@Deprecated
 	public InitiateRecoupResponseType initiateRecoup (InitiateRecoupReq InitiateRecoupReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return initiateRecoup(InitiateRecoupReq, null);
 	}
@@ -208,6 +120,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new CompleteRecoupResponseType(response);
 	}
 
+	@Deprecated
 	public CompleteRecoupResponseType completeRecoup (CompleteRecoupReq CompleteRecoupReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return completeRecoup(CompleteRecoupReq, null);
 	}
@@ -231,6 +144,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new CancelRecoupResponseType(response);
 	}
 
+	@Deprecated
 	public CancelRecoupResponseType cancelRecoup (CancelRecoupReq CancelRecoupReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return cancelRecoup(CancelRecoupReq, null);
 	}
@@ -254,6 +168,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetTransactionDetailsResponseType(response);
 	}
 
+	@Deprecated
 	public GetTransactionDetailsResponseType getTransactionDetails (GetTransactionDetailsReq GetTransactionDetailsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getTransactionDetails(GetTransactionDetailsReq, null);
 	}
@@ -277,6 +192,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new BillUserResponseType(response);
 	}
 
+	@Deprecated
 	public BillUserResponseType billUser (BillUserReq BillUserReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return billUser(BillUserReq, null);
 	}
@@ -294,12 +210,17 @@ private void setStandardParams(AbstractRequestType request) {
 	 * @throws ParserConfigurationException
 	 * @throws SAXException
 	 */
-	public TransactionSearchResponseType transactionSearch (TransactionSearchReq TransactionSearchReq,  String apiUsername) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
+	public TransactionSearchResponseType transactionSearch (TransactionSearchReq TransactionSearchReq,  String apiUsername) 
+			throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, 
+			ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
+		logger.entering("PayPalAPIInterfaceServiceService", "transactionSearch");
 		setStandardParams(TransactionSearchReq.getTransactionSearchRequest());
+		logger.log(Level.INFO, TransactionSearchReq.toString());
 		String response = call("TransactionSearch", TransactionSearchReq.toXMLString(), apiUsername);
 		return new TransactionSearchResponseType(response);
 	}
 
+	@Deprecated
 	public TransactionSearchResponseType transactionSearch (TransactionSearchReq TransactionSearchReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return transactionSearch(TransactionSearchReq, null);
 	}
@@ -323,6 +244,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new MassPayResponseType(response);
 	}
 
+	@Deprecated
 	public MassPayResponseType massPay (MassPayReq MassPayReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return massPay(MassPayReq, null);
 	}
@@ -346,6 +268,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new BAUpdateResponseType(response);
 	}
 
+	@Deprecated
 	public BAUpdateResponseType billAgreementUpdate (BillAgreementUpdateReq BillAgreementUpdateReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return billAgreementUpdate(BillAgreementUpdateReq, null);
 	}
@@ -369,6 +292,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new AddressVerifyResponseType(response);
 	}
 
+	@Deprecated
 	public AddressVerifyResponseType addressVerify (AddressVerifyReq AddressVerifyReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return addressVerify(AddressVerifyReq, null);
 	}
@@ -392,6 +316,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new EnterBoardingResponseType(response);
 	}
 
+	@Deprecated
 	public EnterBoardingResponseType enterBoarding (EnterBoardingReq EnterBoardingReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return enterBoarding(EnterBoardingReq, null);
 	}
@@ -415,6 +340,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetBoardingDetailsResponseType(response);
 	}
 
+	@Deprecated
 	public GetBoardingDetailsResponseType getBoardingDetails (GetBoardingDetailsReq GetBoardingDetailsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getBoardingDetails(GetBoardingDetailsReq, null);
 	}
@@ -438,6 +364,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new CreateMobilePaymentResponseType(response);
 	}
 
+	@Deprecated
 	public CreateMobilePaymentResponseType createMobilePayment (CreateMobilePaymentReq CreateMobilePaymentReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return createMobilePayment(CreateMobilePaymentReq, null);
 	}
@@ -461,6 +388,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetMobileStatusResponseType(response);
 	}
 
+	@Deprecated
 	public GetMobileStatusResponseType getMobileStatus (GetMobileStatusReq GetMobileStatusReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getMobileStatus(GetMobileStatusReq, null);
 	}
@@ -484,6 +412,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new SetMobileCheckoutResponseType(response);
 	}
 
+	@Deprecated
 	public SetMobileCheckoutResponseType setMobileCheckout (SetMobileCheckoutReq SetMobileCheckoutReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return setMobileCheckout(SetMobileCheckoutReq, null);
 	}
@@ -507,6 +436,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoMobileCheckoutPaymentResponseType(response);
 	}
 
+	@Deprecated
 	public DoMobileCheckoutPaymentResponseType doMobileCheckoutPayment (DoMobileCheckoutPaymentReq DoMobileCheckoutPaymentReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doMobileCheckoutPayment(DoMobileCheckoutPaymentReq, null);
 	}
@@ -530,6 +460,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetBalanceResponseType(response);
 	}
 
+	@Deprecated
 	public GetBalanceResponseType getBalance (GetBalanceReq GetBalanceReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getBalance(GetBalanceReq, null);
 	}
@@ -553,6 +484,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetPalDetailsResponseType(response);
 	}
 
+	@Deprecated
 	public GetPalDetailsResponseType getPalDetails (GetPalDetailsReq GetPalDetailsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getPalDetails(GetPalDetailsReq, null);
 	}
@@ -576,6 +508,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoExpressCheckoutPaymentResponseType(response);
 	}
 
+	@Deprecated
 	public DoExpressCheckoutPaymentResponseType doExpressCheckoutPayment (DoExpressCheckoutPaymentReq DoExpressCheckoutPaymentReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doExpressCheckoutPayment(DoExpressCheckoutPaymentReq, null);
 	}
@@ -599,6 +532,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoUATPExpressCheckoutPaymentResponseType(response);
 	}
 
+	@Deprecated
 	public DoUATPExpressCheckoutPaymentResponseType doUATPExpressCheckoutPayment (DoUATPExpressCheckoutPaymentReq DoUATPExpressCheckoutPaymentReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doUATPExpressCheckoutPayment(DoUATPExpressCheckoutPaymentReq, null);
 	}
@@ -622,6 +556,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new SetAuthFlowParamResponseType(response);
 	}
 
+	@Deprecated
 	public SetAuthFlowParamResponseType setAuthFlowParam (SetAuthFlowParamReq SetAuthFlowParamReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return setAuthFlowParam(SetAuthFlowParamReq, null);
 	}
@@ -645,6 +580,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetAuthDetailsResponseType(response);
 	}
 
+	@Deprecated
 	public GetAuthDetailsResponseType getAuthDetails (GetAuthDetailsReq GetAuthDetailsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getAuthDetails(GetAuthDetailsReq, null);
 	}
@@ -668,6 +604,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new SetAccessPermissionsResponseType(response);
 	}
 
+	@Deprecated
 	public SetAccessPermissionsResponseType setAccessPermissions (SetAccessPermissionsReq SetAccessPermissionsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return setAccessPermissions(SetAccessPermissionsReq, null);
 	}
@@ -691,6 +628,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new UpdateAccessPermissionsResponseType(response);
 	}
 
+	@Deprecated
 	public UpdateAccessPermissionsResponseType updateAccessPermissions (UpdateAccessPermissionsReq UpdateAccessPermissionsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return updateAccessPermissions(UpdateAccessPermissionsReq, null);
 	}
@@ -714,6 +652,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetAccessPermissionDetailsResponseType(response);
 	}
 
+	@Deprecated
 	public GetAccessPermissionDetailsResponseType getAccessPermissionDetails (GetAccessPermissionDetailsReq GetAccessPermissionDetailsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getAccessPermissionDetails(GetAccessPermissionDetailsReq, null);
 	}
@@ -737,6 +676,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetIncentiveEvaluationResponseType(response);
 	}
 
+	@Deprecated
 	public GetIncentiveEvaluationResponseType getIncentiveEvaluation (GetIncentiveEvaluationReq GetIncentiveEvaluationReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getIncentiveEvaluation(GetIncentiveEvaluationReq, null);
 	}
@@ -760,6 +700,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new SetExpressCheckoutResponseType(response);
 	}
 
+	@Deprecated
 	public SetExpressCheckoutResponseType setExpressCheckout (SetExpressCheckoutReq SetExpressCheckoutReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return setExpressCheckout(SetExpressCheckoutReq, null);
 	}
@@ -783,6 +724,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new ExecuteCheckoutOperationsResponseType(response);
 	}
 
+	@Deprecated
 	public ExecuteCheckoutOperationsResponseType executeCheckoutOperations (ExecuteCheckoutOperationsReq ExecuteCheckoutOperationsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return executeCheckoutOperations(ExecuteCheckoutOperationsReq, null);
 	}
@@ -806,6 +748,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetExpressCheckoutDetailsResponseType(response);
 	}
 
+	@Deprecated
 	public GetExpressCheckoutDetailsResponseType getExpressCheckoutDetails (GetExpressCheckoutDetailsReq GetExpressCheckoutDetailsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getExpressCheckoutDetails(GetExpressCheckoutDetailsReq, null);
 	}
@@ -829,6 +772,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoDirectPaymentResponseType(response);
 	}
 
+	@Deprecated
 	public DoDirectPaymentResponseType doDirectPayment (DoDirectPaymentReq DoDirectPaymentReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doDirectPayment(DoDirectPaymentReq, null);
 	}
@@ -852,6 +796,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new ManagePendingTransactionStatusResponseType(response);
 	}
 
+	@Deprecated
 	public ManagePendingTransactionStatusResponseType managePendingTransactionStatus (ManagePendingTransactionStatusReq ManagePendingTransactionStatusReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return managePendingTransactionStatus(ManagePendingTransactionStatusReq, null);
 	}
@@ -874,7 +819,8 @@ private void setStandardParams(AbstractRequestType request) {
 		String response = call("DoCancel", DoCancelReq.toXMLString(), apiUsername);
 		return new DoCancelResponseType(response);
 	}
-
+	
+	@Deprecated
 	public DoCancelResponseType doCancel (DoCancelReq DoCancelReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doCancel(DoCancelReq, null);
 	}
@@ -898,6 +844,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoCaptureResponseType(response);
 	}
 
+	@Deprecated
 	public DoCaptureResponseType doCapture (DoCaptureReq DoCaptureReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doCapture(DoCaptureReq, null);
 	}
@@ -921,6 +868,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoReauthorizationResponseType(response);
 	}
 
+	@Deprecated
 	public DoReauthorizationResponseType doReauthorization (DoReauthorizationReq DoReauthorizationReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doReauthorization(DoReauthorizationReq, null);
 	}
@@ -944,6 +892,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoVoidResponseType(response);
 	}
 
+	@Deprecated
 	public DoVoidResponseType doVoid (DoVoidReq DoVoidReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doVoid(DoVoidReq, null);
 	}
@@ -967,6 +916,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoAuthorizationResponseType(response);
 	}
 
+	@Deprecated
 	public DoAuthorizationResponseType doAuthorization (DoAuthorizationReq DoAuthorizationReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doAuthorization(DoAuthorizationReq, null);
 	}
@@ -990,6 +940,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new SetCustomerBillingAgreementResponseType(response);
 	}
 
+	@Deprecated
 	public SetCustomerBillingAgreementResponseType setCustomerBillingAgreement (SetCustomerBillingAgreementReq SetCustomerBillingAgreementReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return setCustomerBillingAgreement(SetCustomerBillingAgreementReq, null);
 	}
@@ -1013,6 +964,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetBillingAgreementCustomerDetailsResponseType(response);
 	}
 
+	@Deprecated
 	public GetBillingAgreementCustomerDetailsResponseType getBillingAgreementCustomerDetails (GetBillingAgreementCustomerDetailsReq GetBillingAgreementCustomerDetailsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getBillingAgreementCustomerDetails(GetBillingAgreementCustomerDetailsReq, null);
 	}
@@ -1036,6 +988,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new CreateBillingAgreementResponseType(response);
 	}
 
+	@Deprecated
 	public CreateBillingAgreementResponseType createBillingAgreement (CreateBillingAgreementReq CreateBillingAgreementReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return createBillingAgreement(CreateBillingAgreementReq, null);
 	}
@@ -1059,6 +1012,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoReferenceTransactionResponseType(response);
 	}
 
+	@Deprecated
 	public DoReferenceTransactionResponseType doReferenceTransaction (DoReferenceTransactionReq DoReferenceTransactionReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doReferenceTransaction(DoReferenceTransactionReq, null);
 	}
@@ -1082,6 +1036,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoNonReferencedCreditResponseType(response);
 	}
 
+	@Deprecated
 	public DoNonReferencedCreditResponseType doNonReferencedCredit (DoNonReferencedCreditReq DoNonReferencedCreditReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doNonReferencedCredit(DoNonReferencedCreditReq, null);
 	}
@@ -1105,6 +1060,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new DoUATPAuthorizationResponseType(response);
 	}
 
+	@Deprecated
 	public DoUATPAuthorizationResponseType doUATPAuthorization (DoUATPAuthorizationReq DoUATPAuthorizationReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return doUATPAuthorization(DoUATPAuthorizationReq, null);
 	}
@@ -1128,6 +1084,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new CreateRecurringPaymentsProfileResponseType(response);
 	}
 
+	@Deprecated
 	public CreateRecurringPaymentsProfileResponseType createRecurringPaymentsProfile (CreateRecurringPaymentsProfileReq CreateRecurringPaymentsProfileReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return createRecurringPaymentsProfile(CreateRecurringPaymentsProfileReq, null);
 	}
@@ -1151,6 +1108,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new GetRecurringPaymentsProfileDetailsResponseType(response);
 	}
 
+	@Deprecated
 	public GetRecurringPaymentsProfileDetailsResponseType getRecurringPaymentsProfileDetails (GetRecurringPaymentsProfileDetailsReq GetRecurringPaymentsProfileDetailsReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return getRecurringPaymentsProfileDetails(GetRecurringPaymentsProfileDetailsReq, null);
 	}
@@ -1174,6 +1132,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new ManageRecurringPaymentsProfileStatusResponseType(response);
 	}
 
+	@Deprecated
 	public ManageRecurringPaymentsProfileStatusResponseType manageRecurringPaymentsProfileStatus (ManageRecurringPaymentsProfileStatusReq ManageRecurringPaymentsProfileStatusReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return manageRecurringPaymentsProfileStatus(ManageRecurringPaymentsProfileStatusReq, null);
 	}
@@ -1197,6 +1156,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new BillOutstandingAmountResponseType(response);
 	}
 
+	@Deprecated
 	public BillOutstandingAmountResponseType billOutstandingAmount (BillOutstandingAmountReq BillOutstandingAmountReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return billOutstandingAmount(BillOutstandingAmountReq, null);
 	}
@@ -1220,6 +1180,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new UpdateRecurringPaymentsProfileResponseType(response);
 	}
 
+	@Deprecated
 	public UpdateRecurringPaymentsProfileResponseType updateRecurringPaymentsProfile (UpdateRecurringPaymentsProfileReq UpdateRecurringPaymentsProfileReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return updateRecurringPaymentsProfile(UpdateRecurringPaymentsProfileReq, null);
 	}
@@ -1243,6 +1204,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new ReverseTransactionResponseType(response);
 	}
 
+	@Deprecated
 	public ReverseTransactionResponseType reverseTransaction (ReverseTransactionReq ReverseTransactionReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return reverseTransaction(ReverseTransactionReq, null);
 	}
@@ -1266,6 +1228,7 @@ private void setStandardParams(AbstractRequestType request) {
 		return new ExternalRememberMeOptOutResponseType(response);
 	}
 
+	@Deprecated
 	public ExternalRememberMeOptOutResponseType externalRememberMeOptOut (ExternalRememberMeOptOutReq ExternalRememberMeOptOutReq) throws SSLConfigurationException, InvalidCredentialException, IOException, HttpErrorException, InvalidResponseDataException, ClientActionRequiredException, MissingCredentialException, InterruptedException, OAuthException, ParserConfigurationException, SAXException {
 		return externalRememberMeOptOut(ExternalRememberMeOptOutReq, null);
 	}

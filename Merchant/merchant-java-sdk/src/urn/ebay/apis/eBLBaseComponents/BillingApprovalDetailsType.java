@@ -5,10 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.ApprovalSubTypeType;
-import urn.ebay.apis.eBLBaseComponents.ApprovalTypeType;
-import urn.ebay.apis.eBLBaseComponents.OrderDetailsType;
-import urn.ebay.apis.eBLBaseComponents.PaymentDirectivesType;
 
 
 /**

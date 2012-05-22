@@ -5,9 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.CreditCardDetailsType;
-import urn.ebay.apis.eBLBaseComponents.PaymentActionCodeType;
-import urn.ebay.apis.eBLBaseComponents.PaymentDetailsType;
 
 
 /**

@@ -7,8 +7,8 @@ package urn.ebay.apis.eBLBaseComponents;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
-import urn.ebay.apis.eBLBaseComponents.FlightDetailsType;
 
 
 /**

@@ -7,7 +7,7 @@ package urn.ebay.api.PayPalAPI;
 
 import java.util.ArrayList;
 import java.util.List;
-import urn.ebay.api.PayPalAPI.MassPayRequestItemType;
+
 import urn.ebay.apis.eBLBaseComponents.AbstractRequestType;
 import urn.ebay.apis.eBLBaseComponents.ReceiverInfoCodeType;
 

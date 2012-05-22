@@ -7,27 +7,9 @@ package urn.ebay.apis.eBLBaseComponents;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
 import urn.ebay.apis.EnhancedDataTypes.EnhancedCheckoutDataType;
-import urn.ebay.apis.eBLBaseComponents.AddressType;
-import urn.ebay.apis.eBLBaseComponents.BillingAgreementDetailsType;
-import urn.ebay.apis.eBLBaseComponents.BuyerDetailsType;
-import urn.ebay.apis.eBLBaseComponents.ChannelType;
-import urn.ebay.apis.eBLBaseComponents.DisplayControlDetailsType;
-import urn.ebay.apis.eBLBaseComponents.ExternalPartnerTrackingDetailsType;
-import urn.ebay.apis.eBLBaseComponents.ExternalRememberMeOptInDetailsType;
-import urn.ebay.apis.eBLBaseComponents.FlowControlDetailsType;
-import urn.ebay.apis.eBLBaseComponents.FundingSourceDetailsType;
-import urn.ebay.apis.eBLBaseComponents.IncentiveInfoType;
-import urn.ebay.apis.eBLBaseComponents.LandingPageType;
-import urn.ebay.apis.eBLBaseComponents.OtherPaymentMethodDetailsType;
-import urn.ebay.apis.eBLBaseComponents.PaymentActionCodeType;
-import urn.ebay.apis.eBLBaseComponents.PaymentDetailsType;
-import urn.ebay.apis.eBLBaseComponents.ProductCategoryType;
-import urn.ebay.apis.eBLBaseComponents.ShippingOptionType;
-import urn.ebay.apis.eBLBaseComponents.ShippingServiceCodeType;
-import urn.ebay.apis.eBLBaseComponents.SolutionTypeType;
-import urn.ebay.apis.eBLBaseComponents.TotalType;
 
 
 /**

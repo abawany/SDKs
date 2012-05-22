@@ -7,10 +7,6 @@ package urn.ebay.apis.eBLBaseComponents;
 
 import java.util.ArrayList;
 import java.util.List;
-import urn.ebay.apis.eBLBaseComponents.CreditCardDetailsType;
-import urn.ebay.apis.eBLBaseComponents.PaymentDetailsItemType;
-import urn.ebay.apis.eBLBaseComponents.RecurringPaymentsProfileDetailsType;
-import urn.ebay.apis.eBLBaseComponents.ScheduleDetailsType;
 
 
 /**

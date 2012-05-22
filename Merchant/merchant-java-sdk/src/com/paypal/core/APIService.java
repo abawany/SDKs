@@ -6,11 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.paypal.exception.ClientActionRequiredException;
-import com.paypal.exception.SSLConfigurationException;
 import com.paypal.exception.HttpErrorException;
 import com.paypal.exception.InvalidCredentialException;
 import com.paypal.exception.InvalidResponseDataException;
 import com.paypal.exception.MissingCredentialException;
+import com.paypal.exception.SSLConfigurationException;
 import com.paypal.sdk.exceptions.OAuthException;
 
 /**
@@ -111,6 +111,7 @@ public class APIService {
 
 			headers = auth.getPayPalHeaders(apiUsername, connection,
 					accessToken, tokenSecret, httpConfiguration);
+			LoggingManager.info(APIService.class, headers.toString());
 			connection.CreateAndconfigureHttpConnection(httpConfiguration);
 
 		} catch (SSLConfigurationException ssl) {

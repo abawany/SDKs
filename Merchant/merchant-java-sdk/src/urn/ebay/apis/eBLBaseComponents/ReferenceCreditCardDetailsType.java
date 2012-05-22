@@ -5,9 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.AddressType;
-import urn.ebay.apis.eBLBaseComponents.CreditCardNumberTypeType;
-import urn.ebay.apis.eBLBaseComponents.PersonNameType;
 
 
 /**

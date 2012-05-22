@@ -5,8 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.IdentificationInfoType;
-import urn.ebay.apis.eBLBaseComponents.TaxIdDetailsType;
 
 
 /**

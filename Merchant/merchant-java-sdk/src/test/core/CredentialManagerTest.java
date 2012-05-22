@@ -30,9 +30,14 @@ public class CredentialManagerTest {
 	public void getCredentialObjectTest(ConfigManager conf)
 			throws InvalidCredentialException {
 
-		credential = cred.getCredentialObject(UnitTestConstants.API_USER_NAME);
-		Assert.assertNotNull(credential);
-		assert (credential.getApplicationId().contains("APP"));
+		try {
+			credential = cred.getCredentialObject(UnitTestConstants.API_USER_NAME);
+			Assert.assertNotNull(credential);
+			assert (credential.getApplicationId().contains("APP"));
+		} catch (MissingCredentialException e) {
+			Assert.assertNotNull(null);
+		}
+		
 	}
 
 	@Test(expectedExceptions = InvalidCredentialException.class, dataProvider = "configParams", dataProviderClass = DataProviderClass.class)
@@ -44,8 +49,12 @@ public class CredentialManagerTest {
 	@Test(dataProvider = "configParams", dataProviderClass = DataProviderClass.class)
 	public void checkDefaultCredentialObjectTest(ConfigManager conf)
 			throws InvalidCredentialException {
-		credential = cred.getCredentialObject(null);
-		Assert.assertNotNull(credential);
+		try {
+			credential = cred.getCredentialObject(null);
+			Assert.assertNotNull(credential);
+		} catch (MissingCredentialException e) {
+			Assert.assertNotNull(null);
+		}
 	}
 
 	@AfterClass

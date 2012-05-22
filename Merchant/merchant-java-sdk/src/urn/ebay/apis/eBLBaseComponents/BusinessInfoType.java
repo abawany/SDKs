@@ -5,14 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.AddressType;
-import urn.ebay.apis.eBLBaseComponents.AverageMonthlyVolumeType;
-import urn.ebay.apis.eBLBaseComponents.AverageTransactionPriceType;
-import urn.ebay.apis.eBLBaseComponents.BusinessCategoryType;
-import urn.ebay.apis.eBLBaseComponents.BusinessSubCategoryType;
-import urn.ebay.apis.eBLBaseComponents.BusinessTypeType;
-import urn.ebay.apis.eBLBaseComponents.PercentageRevenueFromOnlineSalesType;
-import urn.ebay.apis.eBLBaseComponents.SalesVenueType;
 
 
 /**

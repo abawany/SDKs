@@ -6,10 +6,6 @@
 package urn.ebay.apis.eBLBaseComponents;
 
 import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
-import urn.ebay.apis.eBLBaseComponents.MobilePaymentCodeType;
-import urn.ebay.apis.eBLBaseComponents.MobileRecipientCodeType;
-import urn.ebay.apis.eBLBaseComponents.PaymentActionCodeType;
-import urn.ebay.apis.eBLBaseComponents.PhoneNumberType;
 
 
 /**

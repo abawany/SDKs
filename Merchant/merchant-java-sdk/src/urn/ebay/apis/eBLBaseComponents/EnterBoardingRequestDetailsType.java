@@ -5,10 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.BankAccountDetailsType;
-import urn.ebay.apis.eBLBaseComponents.BusinessInfoType;
-import urn.ebay.apis.eBLBaseComponents.BusinessOwnerInfoType;
-import urn.ebay.apis.eBLBaseComponents.MarketingCategoryType;
 
 
 /**

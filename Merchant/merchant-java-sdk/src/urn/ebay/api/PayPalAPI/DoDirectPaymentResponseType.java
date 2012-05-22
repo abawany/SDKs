@@ -5,18 +5,20 @@
 
 package urn.ebay.api.PayPalAPI;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringReader;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
 import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
 import urn.ebay.apis.eBLBaseComponents.AbstractResponseType;
 import urn.ebay.apis.eBLBaseComponents.FMFDetailsType;
@@ -45,15 +47,15 @@ public class DoDirectPaymentResponseType extends AbstractResponseType{
 	 * Address Verification System response code. Character limit: One single-byte alphanumeric character
 	 * AVS CodeMeaningMatched Details 
 A AddressAddress only (no ZIP)  
-B International “A”Address only (no ZIP)  
-CInternational “N” None  
-DInternational “X” Address and Postal Code  
+B International â€œAâ€�Address only (no ZIP)  
+CInternational â€œNâ€� None  
+DInternational â€œXâ€� Address and Postal Code  
 E Not allowed for MOTO (Internet/Phone) transactions Not applicable 
-F UK-specific “X”Address and Postal Code  
+F UK-specific â€œXâ€�Address and Postal Code  
 G Global Unavailable Not applicable 
 I International UnavailableNot applicable  
 N NoNone  
-PPostal (International “Z”)Postal Code only (no Address)   
+PPostal (International â€œZâ€�)Postal Code only (no Address)   
 RRetryNot applicable   
 S Service not Supported Not applicable 
 U UnavailableNot applicable  

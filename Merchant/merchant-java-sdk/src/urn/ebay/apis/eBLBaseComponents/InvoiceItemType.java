@@ -7,10 +7,8 @@ package urn.ebay.apis.eBLBaseComponents;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
-import urn.ebay.apis.eBLBaseComponents.AdditionalFeeType;
-import urn.ebay.apis.eBLBaseComponents.DiscountType;
-import urn.ebay.apis.eBLBaseComponents.UnitOfMeasure;
 
 
 /**

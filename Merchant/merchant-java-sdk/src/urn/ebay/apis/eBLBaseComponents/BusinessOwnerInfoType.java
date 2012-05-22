@@ -5,7 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.PayerInfoType;
 
 
 /**

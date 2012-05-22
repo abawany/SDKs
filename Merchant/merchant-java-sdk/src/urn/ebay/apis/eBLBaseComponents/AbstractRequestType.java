@@ -7,7 +7,6 @@ package urn.ebay.apis.eBLBaseComponents;
 
 import java.util.ArrayList;
 import java.util.List;
-import urn.ebay.apis.eBLBaseComponents.DetailLevelCodeType;
 
 
 /**

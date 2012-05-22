@@ -5,30 +5,24 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
 import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
 import urn.ebay.apis.EnhancedDataTypes.EnhancedPaymentDataType;
-import urn.ebay.apis.eBLBaseComponents.AddressType;
-import urn.ebay.apis.eBLBaseComponents.AllowedPaymentMethodType;
-import urn.ebay.apis.eBLBaseComponents.OfferDetailsType;
-import urn.ebay.apis.eBLBaseComponents.PaymentActionCodeType;
-import urn.ebay.apis.eBLBaseComponents.PaymentDetailsItemType;
-import urn.ebay.apis.eBLBaseComponents.RecurringFlagType;
-import urn.ebay.apis.eBLBaseComponents.SellerDetailsType;
-import urn.ebay.apis.eBLBaseComponents.ShippingServiceCodeType;
 
 
 /**

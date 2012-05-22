@@ -6,7 +6,6 @@
 package urn.ebay.apis.eBLBaseComponents;
 
 import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
-import urn.ebay.apis.eBLBaseComponents.RedeemedOfferType;
 
 
 /**

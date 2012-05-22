@@ -6,10 +6,6 @@
 package urn.ebay.apis.eBLBaseComponents;
 
 import urn.ebay.apis.CoreComponentTypes.BasicAmountType;
-import urn.ebay.apis.eBLBaseComponents.AddressType;
-import urn.ebay.apis.eBLBaseComponents.AutoBillType;
-import urn.ebay.apis.eBLBaseComponents.BillingPeriodDetailsType_Update;
-import urn.ebay.apis.eBLBaseComponents.CreditCardDetailsType;
 
 
 /**

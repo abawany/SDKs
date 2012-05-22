@@ -5,8 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.AuthorizationRequestType;
-import urn.ebay.apis.eBLBaseComponents.SetDataRequestType;
 
 
 /**

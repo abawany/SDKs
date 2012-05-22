@@ -5,9 +5,6 @@
 
 package urn.ebay.apis.eBLBaseComponents;
 
-import urn.ebay.apis.eBLBaseComponents.ActivationDetailsType;
-import urn.ebay.apis.eBLBaseComponents.AutoBillType;
-import urn.ebay.apis.eBLBaseComponents.BillingPeriodDetailsType;
 
 
 /**

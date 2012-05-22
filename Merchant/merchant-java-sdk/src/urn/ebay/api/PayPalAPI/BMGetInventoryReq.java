@@ -5,7 +5,6 @@
 
 package urn.ebay.api.PayPalAPI;
 
-import urn.ebay.api.PayPalAPI.BMGetInventoryRequestType;
 
 
 /**
